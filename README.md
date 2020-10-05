@@ -1,5 +1,7 @@
 ## outlook-2-sp-spfx
 
+## TIPP for instalation
+Use Node Version 10.13.0 - new versions of Node crash with gulp v3
 
 ## Summary
 This SPFx Outlook Add-In lets you browse your OneDrive, joined Teams or Groups and select a folder to save your complete mail in there.
