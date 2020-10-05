@@ -2,8 +2,8 @@
   "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
   "solution": {
     "name": "outlook-2-sp-spfx-client-side-solution",
-    "id": "41e21307-ed8c-4409-b12f-9c575675bb37",
-    "version": "1.0.0.0",
+    "id": "41e21307-ed8c-4409-b12f-9c575675bb33",
+    "version": "1.0.0.1",
     "includeClientSideAssets": true,
     "skipFeatureDeployment": true,
     "isDomainIsolated": false,
@@ -27,10 +27,10 @@
       {
         "resource": "Microsoft Graph",
         "scope": "Mail.ReadWrite"
-      },      
+      },
       {
         "resource": "Microsoft Graph",
-        "scope": "Sites.ReadWrite.All"
+        "scope": "Team.ReadBasic.All"
       }
     ]
   },
