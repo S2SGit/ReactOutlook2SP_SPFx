@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { Overlay } from 'office-ui-fabric-react/lib/Overlay';
-import { PrimaryButton } from 'office-ui-fabric-react/lib/Button';
-import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
+import { List, Overlay } from '@fluentui/react';
+import { PrimaryButton } from '@fluentui/react';
+import { Spinner, SpinnerSize } from '@fluentui/react';
 import Breadcrumb from './controls/Breadcrumb';
 import Folder from './Folder';
 import styles from './Groups.module.scss';

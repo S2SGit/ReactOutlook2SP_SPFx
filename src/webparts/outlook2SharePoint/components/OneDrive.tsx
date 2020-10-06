@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { Overlay } from 'office-ui-fabric-react/lib/Overlay';
-import { PrimaryButton } from 'office-ui-fabric-react/lib/Button';
-import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
+import { Overlay, styled } from '@fluentui/react';
+import { Spinner, SpinnerSize } from '@fluentui/react';
 import Folder from './Folder';
 import styles from './Groups.module.scss';
 import * as strings from 'Outlook2SharePointWebPartStrings';
@@ -9,6 +8,7 @@ import Breadcrumb from './controls/Breadcrumb';
 import { IOneDriveProps } from './IOneDriveProps';
 import { IOneDriveState } from './IOneDriveState';
 import { IFolder } from '../../../model/IFolder';
+import { DefaultButton, PrimaryButton, Stack, IStackTokens } from '@fluentui/react';
 
 export default class OneDrive extends React.Component<IOneDriveProps, IOneDriveState> {  
   constructor(props) {
@@ -48,8 +48,8 @@ export default class OneDrive extends React.Component<IOneDriveProps, IOneDriveS
           </ul>
         </div>
         <div>
-          <PrimaryButton
-              className={styles.saveBtn}         
+          <PrimaryButton  
+              className={styles.saveBtn}     
               text={strings.SaveLabel}
               onClick={this.saveMailTo}
               allowDisabledFocus={true}

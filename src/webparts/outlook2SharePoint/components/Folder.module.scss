@@ -1,6 +1,7 @@
 @import '~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss';
 
 .folder {
+  padding: 2px 0;
   .header {
     @include ms-fontSize-m;
     margin-left: 3px;
@@ -8,8 +9,15 @@
   .isLink {
     cursor: pointer;
   }
+  .isLink:hover {
+    color: #0078d4
+  }
   .sublist {
     list-style-type: none;
     margin-inline-start: 20px;
   }
+}
+
+.folder:hover {
+  color: #0078d4;
 }

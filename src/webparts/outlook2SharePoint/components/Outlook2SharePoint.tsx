@@ -1,14 +1,16 @@
 import * as React from 'react';
 import styles from './Outlook2SharePoint.module.scss';
 import * as strings from 'Outlook2SharePointWebPartStrings';
-import { Icon } from 'office-ui-fabric-react/lib/Icon';
-import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
 import GraphController from '../../../controller/GraphController';
 import Groups from './Groups';
 import OneDrive from './OneDrive';
 import Teams from './Teams';
 import { IOutlook2SharePointProps } from './IOutlook2SharePointProps';
 import { IOutlook2SharePointState } from './IOutlook2SharePointState';
+import { FontIcon } from 'office-ui-fabric-react/lib/Icon';
+import { ILabelStyles, IStyleSet, MessageBar, MessageBarType, Pivot, PivotItem, PrimaryButton } from '@fluentui/react';
+import { initializeIcons } from 'office-ui-fabric-react/lib/Icons';
+initializeIcons("https://static2.sharepointonline.com/files/fabric/assets/icons/");
 
 export default class Outlook2SharePoint extends React.Component<IOutlook2SharePointProps, IOutlook2SharePointState> {
   private graphController: GraphController;
@@ -37,15 +39,52 @@ export default class Outlook2SharePoint extends React.Component<IOutlook2SharePo
   }
 
   public render(): React.ReactElement<IOutlook2SharePointProps> {
+    const labelStyles: Partial<IStyleSet<ILabelStyles>> = {
+      root: { marginTop: 10 },
+    };
 
     return (
+      
       <div className={ styles.outlook2SharePoint }>
         {this.state.mailMetadata !== null &&
           <div className={styles.metadata}>
-            <div><Icon iconName="InfoSolid" /> {strings.SaveInfo}</div>
+            <div><FontIcon iconName="InfoSolid" /> {strings.SaveInfo}</div>
             <div className={styles.subMetadata}>{strings.To} <a href={this.state.mailMetadata.saveUrl}>{this.state.mailMetadata.saveDisplayName}</a></div>
             <div className={styles.subMetadata}>{strings.On} <span>{this.state.mailMetadata.savedDate.toLocaleDateString()}</span></div>
           </div>}
+
+        <Pivot aria-label="Basic Pivot Example">
+          <PivotItem headerText="OneDrive"> 
+            <br/>
+            <OneDrive 
+              graphController={this.state.graphController} 
+              mail={this.props.mail}
+              successCallback={this.showSuccess}
+              errorCallback={this.showError}>
+            </OneDrive>
+          </PivotItem>
+          <PivotItem headerText="Teams">
+            <br/>
+            <Teams 
+              graphController={this.state.graphController} 
+              mail={this.props.mail}
+              successCallback={this.showSuccess}
+              errorCallback={this.showError}>
+            </Teams>
+          </PivotItem>
+          <PivotItem headerText="SharePoint">
+            <br/>
+            <Groups 
+              graphController={this.state.graphController} 
+              mail={this.props.mail}
+              successCallback={this.showSuccess}
+              errorCallback={this.showError}>
+            </Groups>
+          </PivotItem>
+        </Pivot>
+
+
+        
         {this.state.showSuccess && <div>
           <MessageBar
             messageBarType={MessageBarType.success}
@@ -70,40 +109,6 @@ export default class Outlook2SharePoint extends React.Component<IOutlook2SharePo
             {this.state.errorMessage}
           </MessageBar>
         </div>} 
-        <div className={styles.header} onClick={this.showOneDrive}>
-          <Icon iconName="OneDrive" className={`ms-IconOneDrive ${styles.headerIcon}`} />                      
-          <span className={styles.headerText}>OneDrive</span>
-        </div>      
-        {this.state.graphController && this.state.showOneDrive && 
-                                        <OneDrive 
-                                          graphController={this.state.graphController} 
-                                          mail={this.props.mail}
-                                          successCallback={this.showSuccess}
-                                          errorCallback={this.showError}>
-                                        </OneDrive>}
-        
-        <div className={styles.header} onClick={this.showTeams}>
-          <Icon iconName="TeamsLogo" className={`ms-IconTeamsLogo ${styles.headerIcon}`} />                      
-          <span className={styles.headerText}>Microsoft Teams</span>
-        </div>
-        {this.state.graphController && this.state.showTeams &&
-                                        <Teams 
-                                          graphController={this.state.graphController} 
-                                          mail={this.props.mail}
-                                          successCallback={this.showSuccess}
-                                          errorCallback={this.showError}>
-                                        </Teams>}
-        <div className={styles.header} onClick={this.showGroups}>
-          <Icon iconName="Group" className={`ms-IconGroup ${styles.headerIcon}`} />                      
-          <span className={styles.headerText}>Microsoft Groups</span>
-        </div>
-        {this.state.graphController && this.state.showGroups &&
-                                        <Groups 
-                                          graphController={this.state.graphController} 
-                                          mail={this.props.mail}
-                                          successCallback={this.showSuccess}
-                                          errorCallback={this.showError}>
-                                        </Groups>}
       </div>
     );
   }
